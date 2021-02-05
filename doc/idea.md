@@ -58,6 +58,10 @@ description of ideas and possible implementations
     - time at top middle
 - world rules and mechanics:
     - time
+        - seasonig
+            - models
+            - challanges/ bonuses
+            - planting restictions
     - own new buildings/farms
         - special regions for diffrent building types
     - animals variaty
@@ -99,3 +103,72 @@ description of ideas and possible implementations
     - system for quests -> look up the best practices
     - world architecture needs to be done before implementing
     - divide created architecture into modules (basic and features)
+
+# Stages
+
+## I Core functional
+
+### phase 1
+- Movement left, right, top, bottom
+- House. Enter buildings
+
+### phase 2
+- 1 NPC model including the interaction
+- Interface menu with tabs
+
+### phase 3
+- items
+
+### phase 4 
+- Saves
+- Craft System
+
+## Experience model
+
+ref: https://onlyagame.typepad.com/only_a_game/2006/08/mathematics_of_.html
+
+ref: https://www.davideaversa.it/blog/gamedesign-math-rpg-level-based-progression/
+
+- core level
+    - gives ability points
+- side levels
+    - consume ability points to imrove one skill in a life path
+    - life paths 
+        - survival
+        - education
+        - production
+
+
+## II Farmer
+
+### time
+- day night change
+- season change
+
+### planting routine
+- plants
+    - core crops
+    - additional crops for working on the plants
+        - cleaning up
+        - watering
+- place for planting
+- planting by yourself
+    - autoplanting logic
+    - 
+
+## III Quests 
+- single quest object
+    - target of the quest
+    - links to previous/next quests
+    - category
+    - description
+    - hints
+- quest overview
+    - categorization into life paths/ common quests
+    - details of each quest
+    - select/track/hide quests
+
+## IV Trader
+
+- truck
+- market
