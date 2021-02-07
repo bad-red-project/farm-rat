@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class JoystickControlMovement : MonoBehaviour
 {
-    private float moveSpeed = 2f;
+    private float moveSpeed = 1f;
     private float BASE_ANIMATION_SPEED = 1f;
     private float OBJECT_MOVEMENT_STABILIZATOR = 5f;
 
