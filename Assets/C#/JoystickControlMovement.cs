@@ -27,6 +27,7 @@ public class JoystickControlMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (movement.sqrMagnitude < 0.01) { return; }
         rb.MovePosition(rb.position + getPositionChange());
     }
 
