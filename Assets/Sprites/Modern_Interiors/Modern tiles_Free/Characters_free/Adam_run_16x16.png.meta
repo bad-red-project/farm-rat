@@ -321,7 +321,7 @@ TextureImporter:
       name: player_move_top_2
       rect:
         serializedVersion: 2
-        x: 111
+        x: 112
         y: 0
         width: 16
         height: 24
@@ -342,7 +342,7 @@ TextureImporter:
       name: player_move_top_3
       rect:
         serializedVersion: 2
-        x: 129
+        x: 128
         y: 0
         width: 16
         height: 24
@@ -384,7 +384,7 @@ TextureImporter:
       name: player_move_top_5
       rect:
         serializedVersion: 2
-        x: 161
+        x: 160
         y: 0
         width: 16
         height: 24
@@ -448,11 +448,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 208
-        y: 1
+        y: 0
         width: 16
         height: 24
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.46075535, y: 0.39534974}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -532,7 +532,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 272
-        y: 1
+        y: 0
         width: 16
         height: 24
       alignment: 0
