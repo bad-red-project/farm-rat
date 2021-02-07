@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class JoystickControlMovement : MonoBehaviour
 {
-    public float moveSpeed = 2f;
+    private float moveSpeed = 2f;
+    private float BASE_ANIMATION_SPEED = 1f;
+    private float OBJECT_MOVEMENT_STABILIZATOR = 5f;
 
     public Rigidbody2D rb;
     public Animator animator;
@@ -20,12 +22,23 @@ public class JoystickControlMovement : MonoBehaviour
         animator.SetFloat("Horizontal", movement.x);
         animator.SetFloat("Vertical", movement.y);
         animator.SetFloat("Speed", movement.sqrMagnitude);
-        animator.speed = 1 + movement.sqrMagnitude * moveSpeed;
+        animator.speed = getAnimationSpeed();
     }
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
-        
+        rb.MovePosition(rb.position + getPositionChange());
+    }
+
+    private Vector2 getPositionChange()
+    {
+        return movement * OBJECT_MOVEMENT_STABILIZATOR * moveSpeed * Time.fixedDeltaTime;
+    }
+
+    private float getAnimationSpeed()
+    {
+        float animationSpeed = BASE_ANIMATION_SPEED + movement.sqrMagnitude * moveSpeed;
+
+        return animationSpeed;
     }
 }
