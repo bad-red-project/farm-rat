@@ -7,6 +7,7 @@ public class JoystickControlMovement : MonoBehaviour
     private float moveSpeed = 1f;
     private float BASE_ANIMATION_SPEED = 1f;
     private float OBJECT_MOVEMENT_STABILIZATOR = 5f;
+    private float START_SPEED_MOVEMENT_PARAMETER = .01f;
 
     public Rigidbody2D rb;
     public Animator animator;
@@ -16,30 +17,37 @@ public class JoystickControlMovement : MonoBehaviour
 
     void Update()
     {
+        UpdateMovementCoordinats();
+        UpdateAnimatorParameters();
+        UpdateAnimatorSpeed();
+    }
+
+    void FixedUpdate() { ChangeModelPosition(); }
+
+    private void ChangeModelPosition()
+    {
+        if (GetAnimatorSpeedParameter() < START_SPEED_MOVEMENT_PARAMETER) { return; }
+        rb.MovePosition(rb.position + GetPositionChange());
+    }
+
+    private void UpdateMovementCoordinats()
+    {
         movement.x = joystick.Horizontal;
         movement.y = joystick.Vertical;
+    }
 
+    private void UpdateAnimatorParameters()
+    {
         animator.SetFloat("Horizontal", movement.x);
         animator.SetFloat("Vertical", movement.y);
-        animator.SetFloat("Speed", movement.sqrMagnitude);
-        animator.speed = getAnimationSpeed();
+        animator.SetFloat("Speed", GetAnimatorSpeedParameter());
     }
 
-    void FixedUpdate()
-    {
-        if (movement.sqrMagnitude < 0.01) { return; }
-        rb.MovePosition(rb.position + getPositionChange());
-    }
+    private void UpdateAnimatorSpeed() { animator.speed = GetAnimationSpeed(); }
 
-    private Vector2 getPositionChange()
-    {
-        return movement * OBJECT_MOVEMENT_STABILIZATOR * moveSpeed * Time.fixedDeltaTime;
-    }
+    private Vector2 GetPositionChange() { return movement * OBJECT_MOVEMENT_STABILIZATOR * moveSpeed * Time.fixedDeltaTime; }
 
-    private float getAnimationSpeed()
-    {
-        float animationSpeed = BASE_ANIMATION_SPEED + movement.sqrMagnitude * moveSpeed;
+    private float GetAnimationSpeed() { return BASE_ANIMATION_SPEED + movement.sqrMagnitude * moveSpeed; }
 
-        return animationSpeed;
-    }
+    private float GetAnimatorSpeedParameter() { return movement.sqrMagnitude; }
 }
