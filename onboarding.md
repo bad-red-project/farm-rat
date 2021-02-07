@@ -13,3 +13,5 @@ Our project is 2D isometric RPG targeting ios and android mobile environment.
 We already implemented control movement player core feature.
 
 Next steps see in the [doc](https://github.com/bad-red-project/farm-rat/blob/master/doc/idea.md#stages "doc")
+
+P.S. We use last LTS unity version
