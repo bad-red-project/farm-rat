@@ -1,7 +1,22 @@
 fileFormatVersion: 2
 guid: 2bfc00e5c78ededc29295933699910ba
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 3666537187376590499
+    second: BigRedHouse
+  - first:
+      213: 2445040941355129578
+    second: SmallRedHouse
+  - first:
+      213: -6469660481665646005
+    second: MiddleRedHouse
+  - first:
+      213: 6241768402821671718
+    second: SmallRedWideHouse1
+  - first:
+      213: 4097750318024166193
+    second: SmallRedWideHouse2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -40,7 +55,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -71,9 +86,138 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: BigRedHouse
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 399
+        width: 201
+        height: 162
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ae6751552822e230800000000000000
+      internalID: 3666537187376590499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmallRedHouse
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 396
+        width: 114
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aea52c228c78ee120800000000000000
+      internalID: 2445040941355129578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiddleRedHouse
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 495
+        width: 167
+        height: 176
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b42cfe4d1162736a0800000000000000
+      internalID: -6469660481665646005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmallRedWideHouse1
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 591
+        width: 129
+        height: 153
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62b6174ca473f9650800000000000000
+      internalID: 6241768402821671718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmallRedWideHouse2
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 591
+        width: 129
+        height: 153
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13b031414322ed830800000000000000
+      internalID: 4097750318024166193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
