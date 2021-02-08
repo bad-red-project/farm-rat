@@ -20,6 +20,7 @@
 - one NPC -> one quest
 - box must show:
     - text on top
+        - NPC name in top-left corner of text block
         - with a skip button to go to the end of the dialog
         - appear with time and sound
             - can be shown full on click
