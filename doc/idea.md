@@ -111,6 +111,7 @@ description of ideas and possible implementations
 ### phase 1
 - Movement left, right, top, bottom
 - House. Enter buildings
+- Tiles
 
 ### phase 2
 - 1 NPC model including the interaction
