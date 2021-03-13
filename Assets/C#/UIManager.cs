@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
 {
     public GameObject replicaContainer;
     public GameObject actionsContainer;
-    public GameObject joystic;
+    public GameObject[] uiIntefaces;
     public TextMeshProUGUI npcReplica;
     public TextMeshProUGUI npcName;
     public TextMeshProUGUI[] textChoices;
@@ -57,7 +57,7 @@ public class UIManager : MonoBehaviour
 
     private void StartDialog(VIDE_Assign videAssign)
     {
-        HideJoystick();
+        HideUiInterfaces();
         ShowReplicaContainer();
         VD.OnNodeChange += UpdateDialogUI;
         VD.OnEnd += End;
@@ -136,14 +136,20 @@ public class UIManager : MonoBehaviour
         actionsContainer.SetActive(true);
     }
 
-    private void HideJoystick()
+    private void HideUiInterfaces()
     {
-        joystic.SetActive(false);
+        foreach (GameObject uiObject in uiIntefaces)
+        {
+            uiObject.SetActive(false);
+        }
     }
 
     private void ShowJoystick()
     {
-        joystic.SetActive(true);
+        foreach (GameObject uiObject in uiIntefaces)
+        {
+            uiObject.SetActive(true);
+        }
     }
 
     private bool getIsLeftMouseClick()
