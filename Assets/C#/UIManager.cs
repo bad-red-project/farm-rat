@@ -9,7 +9,8 @@ public class UIManager : MonoBehaviour
 {
     public GameObject replicaContainer;
     public GameObject actionsContainer;
-    public GameObject[] uiIntefaces;
+    public GameObject joystic;
+    public GameObject dialogAction;
     public TextMeshProUGUI npcReplica;
     public TextMeshProUGUI npcName;
     public TextMeshProUGUI[] textChoices;
@@ -33,13 +34,14 @@ public class UIManager : MonoBehaviour
     {
         if (replicaContainer != null)
         {
-            End(null);
+            EndDialog(null);
         }
     }
 
     private void UpdateDialogState()
     {
-        if (!getIsLeftMouseClick() || getIsDialogActionCkicked() || actionsContainer.activeSelf)
+        bool isPlayerActionStage = getIsDialogActionCkicked() || actionsContainer.activeSelf;
+        if (!getIsLeftMouseClick() || isPlayerActionStage)
             return;
 
         if (VD.isActive)
@@ -57,10 +59,11 @@ public class UIManager : MonoBehaviour
 
     private void StartDialog(VIDE_Assign videAssign)
     {
-        HideUiInterfaces();
+        HideJoystick();
+        HideDialogAction();
         ShowReplicaContainer();
         VD.OnNodeChange += UpdateDialogUI;
-        VD.OnEnd += End;
+        VD.OnEnd += EndDialog;
         VD.BeginDialogue(videAssign);
     }
 
@@ -97,13 +100,14 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void End(VD.NodeData data)
+    private void EndDialog(VD.NodeData data)
     {
         ShowJoystick();
+        ShowDialogAction();
         HideReplicaContainer();
         HideActionsContainer();
         VD.OnNodeChange -= UpdateDialogUI;
-        VD.OnEnd -= End;
+        VD.OnEnd -= EndDialog;
         VD.EndDialogue();
     }
 
@@ -136,20 +140,24 @@ public class UIManager : MonoBehaviour
         actionsContainer.SetActive(true);
     }
 
-    private void HideUiInterfaces()
+    private void HideJoystick()
     {
-        foreach (GameObject uiObject in uiIntefaces)
-        {
-            uiObject.SetActive(false);
-        }
+        joystic.SetActive(false);
     }
 
     private void ShowJoystick()
     {
-        foreach (GameObject uiObject in uiIntefaces)
-        {
-            uiObject.SetActive(true);
-        }
+        joystic.SetActive(true);
+    }
+
+    private void HideDialogAction()
+    {
+        dialogAction.SetActive(false);
+    }
+
+    private void ShowDialogAction()
+    {
+        dialogAction.SetActive(true);
     }
 
     private bool getIsLeftMouseClick()
@@ -184,5 +192,17 @@ public class UIManager : MonoBehaviour
             return null;
 
         return hit.transform.gameObject.GetComponent<VIDE_Assign>();
+    }
+
+    public void EnterDialogTrigger(VIDE_Assign vide)
+    {
+        ShowDialogAction();
+        dialogAction.GetComponent<MultiImageButton>().onClick.AddListener(delegate { StartDialog(vide); });
+    }
+
+    public void ExitDialogTrigger()
+    {
+        HideDialogAction();
+        dialogAction.GetComponent<MultiImageButton>().onClick.RemoveAllListeners();
     }
 }
