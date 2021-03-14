@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JoystickControlMovement : MonoBehaviour
+public class MovementControl : MonoBehaviour
 {
     private float moveSpeed = 1f;
     private float BASE_ANIMATION_SPEED = 1f;
@@ -12,8 +12,10 @@ public class JoystickControlMovement : MonoBehaviour
     public Rigidbody2D rb;
     public Animator animator;
     public Joystick joystick;
+    public bool isAutoMove = false;
 
     private Vector2 movement;
+    private Vector2 autoMoveTarget;
 
     void Update()
     {
@@ -32,8 +34,37 @@ public class JoystickControlMovement : MonoBehaviour
 
     private void UpdateMovementCoordinats()
     {
+        if (isAutoMove && !GetIsJoystickMovement())
+        {
+            UpdateAutoMovementCoordinats();
+            return;
+        }
+
         movement.x = joystick.Horizontal;
         movement.y = joystick.Vertical;
+        isAutoMove = false;
+    }
+
+    private void UpdateAutoMovementCoordinats()
+    {
+        Vector2 playerPosition = rb.position;
+        float distance = Vector2.Distance(playerPosition, autoMoveTarget);
+        if (distance == 0)
+        {
+            StopAutoMovement();
+        }
+
+        movement.x = GetMovementDirectionCoordinat(playerPosition.x, autoMoveTarget.x);
+        movement.y = GetMovementDirectionCoordinat(playerPosition.y, autoMoveTarget.y);
+    }
+
+    private float GetMovementDirectionCoordinat(float coordinatFrom, float coordinatTo)
+    {
+        float coordinatDiff = coordinatTo - coordinatFrom;
+        if (coordinatDiff > -1 && coordinatDiff < 1 )
+            return coordinatDiff;
+
+        return coordinatTo > coordinatFrom ? 1 : -1;
     }
 
     private void UpdateAnimatorParameters()
@@ -50,4 +81,19 @@ public class JoystickControlMovement : MonoBehaviour
     private float GetAnimationSpeed() { return BASE_ANIMATION_SPEED + movement.sqrMagnitude * moveSpeed; }
 
     private float GetAnimatorSpeedParameter() { return movement.sqrMagnitude; }
+
+    private bool GetIsJoystickMovement()
+    {
+        return joystick.Horizontal != 0 || joystick.Vertical != 0;
+    }
+
+    private void StopAutoMovement()
+    {
+        isAutoMove = false;
+    }
+    public void MoveTo(Vector2 target)
+    {
+        autoMoveTarget = target;
+        isAutoMove = true;
+    }
 }

@@ -7,6 +7,7 @@ using VIDE_Data;
 
 public class UIManager : MonoBehaviour
 {
+    public GameObject player;
     public GameObject replicaContainer;
     public GameObject actionsContainer;
     public GameObject joystic;
@@ -14,6 +15,9 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI npcReplica;
     public TextMeshProUGUI npcName;
     public TextMeshProUGUI[] textChoices;
+
+    private string interactedNpcName;
+    private string targetNpcName;
 
     private int LEFT_BUTTON_KEY = 0;
     private string CLICKABLE_LAYER_KEY = "Clickable";
@@ -51,10 +55,16 @@ public class UIManager : MonoBehaviour
         }
 
         VIDE_Assign vide = getTargetVide();
-        if (vide != null)
+        if (vide == null)
+            return;
+
+        if (!GetIsPlayerInRange())
         {
-            StartDialog(vide);
+            GoToDialogTriggerZone();
+            return;
         }
+
+        StartDialog(vide);
     }
 
     private void StartDialog(VIDE_Assign videAssign)
@@ -142,6 +152,7 @@ public class UIManager : MonoBehaviour
 
     private void HideJoystick()
     {
+        joystic.GetComponent<FixedJoystick>().SetInitialCoordinates();
         joystic.SetActive(false);
     }
 
@@ -184,25 +195,71 @@ public class UIManager : MonoBehaviour
         if (!getIsLeftMouseClick())
             return null;
 
-        int clickableLayer = LayerMask.GetMask(CLICKABLE_LAYER_KEY);
-        Vector3 clickedPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        RaycastHit2D hit = Physics2D.Raycast(clickedPosition, Vector2.zero, Mathf.Infinity, clickableLayer);
+        RaycastHit2D hit = GetWorldPointerHit();
         if (hit.collider == null)
             return null;
 
         return hit.transform.gameObject.GetComponent<VIDE_Assign>();
     }
 
+    private string GetTargetName()
+    {
+        if (!getIsLeftMouseClick())
+            return "";
+
+        RaycastHit2D hit = GetWorldPointerHit();
+        if (hit.collider == null)
+            return "";
+
+        return hit.transform.gameObject.name;
+    }
+
+    private bool GetIsPlayerInRange()
+    {
+        string targetName = GetTargetName();
+        return targetName == interactedNpcName;
+    }
+
+    private void GoToDialogTriggerZone()
+    {
+        targetNpcName = GetTargetName();
+
+        Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        player.GetComponent<MovementControl>().MoveTo(target);
+    }
+
+    private RaycastHit2D GetWorldPointerHit()
+    {
+        int clickableLayer = LayerMask.GetMask(CLICKABLE_LAYER_KEY);
+        Vector3 clickedPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        return Physics2D.Raycast(clickedPosition, Vector2.zero, Mathf.Infinity, clickableLayer);
+    }
+
     public void EnterDialogTrigger(VIDE_Assign vide)
     {
         ShowDialogAction();
         dialogAction.GetComponent<MultiImageButton>().onClick.AddListener(delegate { StartDialog(vide); });
+        interactedNpcName = vide.gameObject.name;
+
+        bool isMovementTarger = interactedNpcName == targetNpcName;
+        bool isAutoMove = player.GetComponent<MovementControl>().isAutoMove;
+        if (isMovementTarger && isAutoMove)
+        {
+            StopMovementToDialog();
+            StartDialog(vide);
+        }
     }
 
     public void ExitDialogTrigger()
     {
         HideDialogAction();
         dialogAction.GetComponent<MultiImageButton>().onClick.RemoveAllListeners();
+        interactedNpcName = "";
+    }
+
+    public void StopMovementToDialog()
+    {
+        targetNpcName = "";
     }
 }
