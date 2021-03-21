@@ -1,6 +1,10 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Animation/Alex.meta
 guid: 7ac830fbd3544914a83a83adc8e1f6c1
 folderAsset: yes
+=======
+guid: f33196df149de7849b43b52727a5b5c4
+>>>>>>> b8fbc9e18230012742386ea611283d1be35da36d:Assets/Scenes/HouseEnteringScene.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
