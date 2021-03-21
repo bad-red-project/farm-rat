@@ -6,28 +6,28 @@ public class Player : MonoBehaviour
 {
     public UIManager uiManager;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        CheckDialogTriggerEnter(collision);
+        CheckDialogTriggerEnter(collider);
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collider)
     {
-        CheckDialogTriggerExit(collision);
+        CheckDialogTriggerExit(collider);
     }
 
-    private void CheckDialogTriggerEnter(Collider2D collision)
+    private void CheckDialogTriggerEnter(Collider2D collider)
     {
-        VIDE_Assign vide = collision.gameObject.GetComponent<VIDE_Assign>();
+        VIDE_Assign vide = collider.gameObject.GetComponent<VIDE_Assign>();
         if (vide != null)
         {
             uiManager.EnterDialogTrigger(vide);
         }
     }
 
-    private void CheckDialogTriggerExit(Collider2D collision)
+    private void CheckDialogTriggerExit(Collider2D collider)
     {
-        VIDE_Assign vide = collision.gameObject.GetComponent<VIDE_Assign>();
+        VIDE_Assign vide = collider.gameObject.GetComponent<VIDE_Assign>();
         if (vide != null)
         {
             uiManager.ExitDialogTrigger();
