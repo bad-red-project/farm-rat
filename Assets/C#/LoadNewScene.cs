@@ -7,6 +7,8 @@ public class LoadNewScene : MonoBehaviour
     public long neededStayTimeMillis;
     private Stopwatch timeStayed = new Stopwatch();
 
+    private string PLAYER = "Player";
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,16 +23,15 @@ public class LoadNewScene : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "PlayersBoxCollider")
+        if (collision.gameObject.name == PLAYER)
         {
-            UnityEngine.Debug.Log("player entered");
             timeStayed.Start();
         }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "PlayersBoxCollider")
+        if (collision.gameObject.name == PLAYER)
         {
             TryEnterNewLocation();
         }
@@ -38,7 +39,7 @@ public class LoadNewScene : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "PlayersBoxCollider")
+        if (collision.gameObject.name == PLAYER)
         {
             timeStayed.Stop();
             TryEnterNewLocation();
