@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
     public GameObject player;
     public GameObject replicaContainer;
     public GameObject actionsContainer;
-    public GameObject joystic;
+    public GameObject joystick;
     public GameObject dialogAction;
     public TextMeshProUGUI npcReplica;
     public TextMeshProUGUI npcName;
@@ -27,6 +27,8 @@ public class UIManager : MonoBehaviour
     {
         HideReplicaContainer();
         HideActionsContainer();
+
+        DontDestroyOnLoad(transform.gameObject);
     }
 
     private void Update()
@@ -152,13 +154,13 @@ public class UIManager : MonoBehaviour
 
     private void HideJoystick()
     {
-        joystic.GetComponent<FixedJoystick>().SetInitialCoordinates();
-        joystic.SetActive(false);
+        joystick.GetComponent<FixedJoystick>().SetInitialCoordinates();
+        joystick.SetActive(false);
     }
 
     private void ShowJoystick()
     {
-        joystic.SetActive(true);
+        joystick.SetActive(true);
     }
 
     private void HideDialogAction()
