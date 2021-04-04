@@ -4,22 +4,11 @@ using System.Diagnostics;
 public class LoadNewScene : MonoBehaviour
 {
     public string levelToLoad;
+    public string newLevelStartPointName;
     public long neededStayTimeMillis;
     private Stopwatch timeStayed = new Stopwatch();
 
     private string PLAYER = "Player";
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -42,7 +31,6 @@ public class LoadNewScene : MonoBehaviour
         if (collision.gameObject.name == PLAYER)
         {
             timeStayed.Stop();
-            TryEnterNewLocation();
             timeStayed.Reset();
         }
     }

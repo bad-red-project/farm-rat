@@ -27,8 +27,6 @@ public class UIManager : MonoBehaviour
     {
         HideReplicaContainer();
         HideActionsContainer();
-
-        DontDestroyOnLoad(transform.gameObject);
     }
 
     private void Update()
