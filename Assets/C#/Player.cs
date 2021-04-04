@@ -6,6 +6,10 @@ public class Player : MonoBehaviour
 {
     public UIManager uiManager;
 
+    void Start()
+    {
+        DontDestroyOnLoad(transform.gameObject);
+    }
     private void OnTriggerEnter2D(Collider2D collider)
     {
         CheckDialogTriggerEnter(collider);
