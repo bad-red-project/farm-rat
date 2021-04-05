@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using BayatGames.SaveGameFree;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class InGameTime : MonoBehaviour
@@ -24,11 +25,11 @@ public class InGameTime : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Load();
         clockLabel = GetComponent<Text>();
         UpdateDayTime();
         ShowInGUI();
     }
-
 
     void Update()
     {
@@ -50,6 +51,7 @@ public class InGameTime : MonoBehaviour
 
         UpdateDayTime();
         ShowInGUI();
+        Save();
         lastChange = Time.time;
     }
 
@@ -72,5 +74,17 @@ public class InGameTime : MonoBehaviour
             // makes night shorter
             dayTimeBias = -minuteDurationInSeconds*0.8;
         }
+    }
+
+    public void Load()
+    {
+        hour = SaveGame.Load<int>("hour");
+        minutes = SaveGame.Load<int>("minutes");
+    }
+
+    public void Save()
+    {
+        SaveGame.Save<int>("hour", hour);
+        SaveGame.Save<int>("minutes", minutes);
     }
 }
