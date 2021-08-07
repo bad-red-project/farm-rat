@@ -1,19 +1,11 @@
 ﻿using BayatGames.SaveGameFree;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InGameTime : MonoBehaviour
 {
-    public double minuteDurationInSeconds = 5.0;
-    // can be used to reduce time needed for the day time to last shorter or longer
-    private double dayTimeBias = 0;
-
-    private double lastChange = 0.0;
-
-    // represents hours from 0 to 23
-    private int hour = 5;
-    // represents minutes from 0 to 5 e.g. meaning 0 and 50 minutes 
-    private int minutes = 4;
+    private TimeSpan clock = new TimeSpan(1,12,20,0);
 
     private Text clockLabel;
 
@@ -21,6 +13,17 @@ public class InGameTime : MonoBehaviour
     private int dayEnd = 21;
     private Color colorDay = new Color(0.8f, 0.8f, 1);
     private Color colorNight = new Color(0.2f, 0.2f, 0.2f);
+    private Boolean abc = false;
+
+    private const int TimeActionMultiplier = 20;
+    public enum TimeActionEnum
+    {
+        ExtraShort,
+        Short,
+        Medium,
+        Long,
+        ExtraLong
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -33,58 +36,66 @@ public class InGameTime : MonoBehaviour
 
     void Update()
     {
-        if ((Time.time - lastChange) < minuteDurationInSeconds + dayTimeBias) 
-        {
-            return;
+        if (!abc) {
+            abc = true;
+            TimeAction(TimeActionEnum.ExtraLong);
         }
-             
-        minutes++;
-        if (minutes == 6)
-        {
-            minutes = 0;
-            hour++;
-            if (hour == 24)
-            {
-                hour = 0;
-            }
-        }
+        // no auto update
+    }
+
+    private void UpdateTime(int minutesToAdd)
+    {
+        clock += new TimeSpan(0, 0, minutesToAdd, 0);
 
         UpdateDayTime();
         ShowInGUI();
         Save();
-        lastChange = Time.time;
     }
 
     void ShowInGUI()
     {
-        clockLabel.text = hour.ToString().PadLeft(2,'0') + ":" + minutes.ToString().PadRight(2, '0');
+        clockLabel.text = clock.Hours.ToString().PadLeft(2, '0') + ":" + clock.Minutes.ToString().PadRight(2, '0');
     }
 
-    void UpdateDayTime() 
+    void UpdateDayTime()
     {
-        bool isDay = hour >= dayBegin && hour < dayEnd;
+        bool isDay = clock.Hours >= dayBegin && clock.Minutes < dayEnd;
         if (isDay)
         {
             clockLabel.color = colorDay;
-            dayTimeBias = 0;
+            return;
         }
-        else
-        {
-            clockLabel.color = colorNight;
-            // makes night shorter
-            dayTimeBias = -minuteDurationInSeconds*0.8;
-        }
+        clockLabel.color = colorNight;
     }
 
     public void Load()
     {
-        hour = SaveGame.Load<int>("hour");
-        minutes = SaveGame.Load<int>("minutes");
+        clock = SaveGame.Load<TimeSpan>("clock");
     }
 
     public void Save()
     {
-        SaveGame.Save<int>("hour", hour);
-        SaveGame.Save<int>("minutes", minutes);
+        SaveGame.Save<TimeSpan>("clock", clock);
+    }
+
+    /// <summary>
+    /// Perfroms a time action incrementing the in-game time
+    /// </summary>
+    /// <param name="eventDuration">Defines the value of the time increment</param>
+    public void TimeAction(TimeActionEnum eventDuration)
+    {
+        int minutesDuration = TimeActionMultiplier * ((int)eventDuration + 1);
+        UpdateTime(minutesDuration);
+    }
+
+    public void SkipADay()
+    {
+        int dayMinutes = 60*24;
+        UpdateTime(dayMinutes);
+    }
+
+    public void SkipToMorning()
+    {
+        throw new NotImplementedException();
     }
 }
